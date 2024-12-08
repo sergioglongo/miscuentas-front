@@ -6,3 +6,4 @@ coverage
 tmp
 node_modules
 /scr/routeTree.gen.ts
+pnpm-lock.yaml
