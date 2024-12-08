@@ -5,3 +5,4 @@ dist
 coverage
 tmp
 node_modules
+/scr/routeTree.gen.ts

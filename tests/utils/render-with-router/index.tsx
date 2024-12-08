@@ -1,6 +1,3 @@
-/* eslint-disable react/display-name */
-import "../../../src/i18n.config";
-
 import type { AnyRouter } from "@tanstack/react-router";
 
 import { isValidElement } from "react";
@@ -99,7 +96,7 @@ function renderWithRouter(
     Component = () => providedComponent;
   }
 
-  Component = addWrappers(Component, { withAuth, withQueryClient });
+  Component = addWrappers(Component, { withQueryClient });
 
   const router = createTestRouter(Component);
   const renderResult = render(<RouterProvider router={router as AnyRouter} />);
