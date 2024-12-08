@@ -1,3 +1,7 @@
-# Ignore artifacts:
+# Add files here to ignore them from prettier formatting
 build
 coverage
+dist
+coverage
+tmp
+node_modules
