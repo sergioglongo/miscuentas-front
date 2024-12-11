@@ -66,6 +66,7 @@ export default tseslint.config(
         {
           groups: [
             ["^\\u0000"],
+            ["^.+\\.s?css$"],
             [
               "^node:.*\\u0000$",
               "^@?\\w.*\\u0000$",
@@ -83,7 +84,6 @@ export default tseslint.config(
             ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
             // Other relative imports. Put same-folder imports and `.` last.
             ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
-            ["^.+\\.s?css$"],
           ],
         },
       ],
