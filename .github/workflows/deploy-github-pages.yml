@@ -17,6 +17,11 @@ jobs:
         with:
           node-version: lts/*
 
+      - name: Install PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
       - name: Install dependencies
         run: pnpm install
 
