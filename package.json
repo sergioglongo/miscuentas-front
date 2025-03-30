@@ -16,7 +16,8 @@
     "prepare": "husky",
     "preview": "vite preview",
     "test": "vitest run",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "types": "tsc && vite-tsconfig-paths && router-gen"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

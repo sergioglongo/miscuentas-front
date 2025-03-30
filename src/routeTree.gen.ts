@@ -15,6 +15,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Route as rootRoute } from "./routes/__root";
 import { Route as DashboardRouteImport } from "./routes/dashboard/route";
 import { Route as AuthRouteImport } from "./routes/auth/route";
+import { Route as IndexImport } from "./routes/index";
 import { Route as DashboardLayoutImport } from "./routes/dashboard/_layout";
 import { Route as AuthLayoutImport } from "./routes/auth/_layout";
 
@@ -34,6 +35,12 @@ const DashboardRouteRoute = DashboardRouteImport.update({
 const AuthRouteRoute = AuthRouteImport.update({
   id: "/auth",
   path: "/auth",
+  getParentRoute: () => rootRoute,
+} as any);
+
+const IndexRoute = IndexImport.update({
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -65,6 +72,13 @@ const AuthLayoutRoute = AuthLayoutImport.update({
 
 declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
     "/auth": {
       id: "/auth";
       path: "/auth";
@@ -141,6 +155,7 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
 );
 
 export interface FileRoutesByFullPath {
+  "/": typeof IndexRoute;
   "/auth": typeof AuthLayoutRoute;
   "/dashboard": typeof DashboardLayoutRoute;
   "/auth/login": typeof AuthLoginLazyRoute;
@@ -148,6 +163,7 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
+  "/": typeof IndexRoute;
   "/auth": typeof AuthLayoutRoute;
   "/dashboard": typeof DashboardIndexLazyRoute;
   "/auth/login": typeof AuthLoginLazyRoute;
@@ -155,6 +171,7 @@ export interface FileRoutesByTo {
 
 export interface FileRoutesById {
   __root__: typeof rootRoute;
+  "/": typeof IndexRoute;
   "/auth": typeof AuthRouteRouteWithChildren;
   "/dashboard": typeof DashboardRouteRouteWithChildren;
   "/auth/_layout": typeof AuthLayoutRoute;
@@ -165,11 +182,12 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/auth" | "/dashboard" | "/auth/login" | "/dashboard/";
+  fullPaths: "/" | "/auth" | "/dashboard" | "/auth/login" | "/dashboard/";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/auth" | "/dashboard" | "/auth/login";
+  to: "/" | "/auth" | "/dashboard" | "/auth/login";
   id:
     | "__root__"
+    | "/"
     | "/auth"
     | "/dashboard"
     | "/auth/_layout"
@@ -180,11 +198,13 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute;
   AuthRouteRoute: typeof AuthRouteRouteWithChildren;
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
 };
@@ -199,9 +219,13 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
+        "/",
         "/auth",
         "/dashboard"
       ]
+    },
+    "/": {
+      "filePath": "index.tsx"
     },
     "/auth": {
       "filePath": "auth/route.ts",
