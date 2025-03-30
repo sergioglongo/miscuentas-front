@@ -9,7 +9,7 @@
     "types": ["vitest/globals"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*"],         // Este debe ser el primer alias
       "@components/*": ["./src/components/*"],
       "@tests/*": ["./tests/*"],
       "@styles/*": ["./src/styles/*"]
