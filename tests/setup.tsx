@@ -24,7 +24,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
 // setup function
 export const setup = (
   ui: ReactElement,
-  options?: Omit<RenderOptions, "wrapper">,
+  options?: Omit<RenderOptions, "wrapper">
 ) => {
   return {
     user: userEvent.setup(),

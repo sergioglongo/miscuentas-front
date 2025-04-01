@@ -91,5 +91,5 @@ export default tseslint.config(
     },
   },
   eslintPluginPrettierRecommended,
-  eslintConfigPrettier,
+  eslintConfigPrettier
 );

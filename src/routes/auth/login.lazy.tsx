@@ -62,7 +62,9 @@ function LoginPage() {
             Crea una aqui..
           </Link>
         </Box>
-        <SignInForm />
+        <Box px={2}>
+          <SignInForm />
+        </Box>
 
         <Divider
           sx={{ my: 3, "&::before, &::after": { borderTopStyle: "dashed" } }}

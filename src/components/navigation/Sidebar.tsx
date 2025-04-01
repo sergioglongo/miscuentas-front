@@ -17,13 +17,17 @@ import {
 } from "@mui/material";
 import { Link } from "@tanstack/react-router";
 
-import { useUIStore } from "@/store/uiStore";
+import { useStore } from "@/store/mainStore";
 
 export function Sidebar() {
+  const {
+    ui: {
+      sidebar: { isOpen },
+      toggleSidebar,
+    },
+  } = useStore();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const isOpen = useUIStore((state) => state.sidebar.isOpen);
-  const toggleSidebar = useUIStore((state) => state.toggleSidebar);
 
   return (
     <>
@@ -34,6 +38,12 @@ export function Sidebar() {
           left: isOpen ? 240 : 10,
           top: 10,
           zIndex: 1200,
+          backgroundColor: "white",
+          borderRadius: isOpen ? "0 12px 12px 0" : "50%",
+          boxShadow: "2px 0 4px rgba(0, 0, 0, 0.1)",
+          "&:hover": {
+            bgcolor: "white",
+          },
         }}
       >
         {isOpen ? <ChevronLeft /> : <MenuIcon />}
@@ -59,7 +69,7 @@ export function Sidebar() {
       >
         <div className="flex items-center justify-center p-4">
           <img
-            src="/src/assets/Logo wallet.png"
+            src="/logowallet.png"
             alt="Mis Cuentas Logo"
             className="h-10 w-auto"
           />

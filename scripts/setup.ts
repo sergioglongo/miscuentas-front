@@ -19,13 +19,13 @@ async function prompt(question: string) {
     rl.question(question, (answer) => {
       rl.close();
       resolve(answer.trim());
-    }),
+    })
   );
 }
 
 async function main() {
   console.log(
-    "Cleaning up the .git folder to initialize a new Git repository...",
+    "Cleaning up the .git folder to initialize a new Git repository..."
   );
 
   // Check and remove existing .git folder
@@ -47,7 +47,7 @@ async function main() {
       .trim();
 
     console.log(
-      `Git is already configured with:\n  Name: ${gitUserName}\n  Email: ${gitUserEmail}`,
+      `Git is already configured with:\n  Name: ${gitUserName}\n  Email: ${gitUserEmail}`
     );
   } catch {
     // Prompt the user for their Git configuration
@@ -66,7 +66,7 @@ async function main() {
   execCommand('git commit -m "Initial commit"');
 
   console.log(
-    "All done! You can now link your own repository using 'git remote add origin <repo-url>'.",
+    "All done! You can now link your own repository using 'git remote add origin <repo-url>'."
   );
 }
 

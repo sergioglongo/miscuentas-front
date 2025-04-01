@@ -9,7 +9,7 @@
     "types": ["vitest/globals"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],         // Este debe ser el primer alias
+      "@/*": ["./src/*"], // Este debe ser el primer alias
       "@components/*": ["./src/components/*"],
       "@tests/*": ["./tests/*"],
       "@styles/*": ["./src/styles/*"]
@@ -29,5 +29,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "tests"]
+  "include": ["src", "tests", "AccountIcon.tsx"]
 }

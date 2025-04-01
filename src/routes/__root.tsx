@@ -1,16 +1,12 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
-import { useAuthStore } from "@/store/authStore";
-
-export interface RouterContext {
-  isAuthenticated: boolean;
-}
+import { useStore } from "@/store/mainStore";
 
 export const Route = createRootRoute({
   component: RootComponent,
   beforeLoad: () => {
-    const isAuthenticated = useAuthStore.getState().isAuthenticated;
+    const isAuthenticated = useStore.getState().user.isAuthenticated;
     console.log("Root beforeLoad - isAuthenticated:", isAuthenticated);
   },
 });

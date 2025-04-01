@@ -21,7 +21,7 @@ interface Options {
 
 const addWrappers = (
   Component: React.FC,
-  { withQueryClient }: Omit<Options, "withUser">,
+  { withQueryClient }: Omit<Options, "withUser">
 ) => {
   if (withQueryClient) {
     const queryClient = new QueryClient({
@@ -67,22 +67,22 @@ function renderWithRouter(providedComponent: Component): RenderResult;
 
 function renderWithRouter(
   providedComponent: Component,
-  options: Partial<Options> & { withUser: true },
+  options: Partial<Options> & { withUser: true }
 ): { user: UserEvent } & RenderResult;
 
 function renderWithRouter(
   providedComponent: Component,
-  options: Partial<Options> & { withUser: false },
+  options: Partial<Options> & { withUser: false }
 ): RenderResult;
 
 function renderWithRouter(
   providedComponent: Component,
-  options: Partial<Options>,
+  options: Partial<Options>
 ): RenderResult;
 
 function renderWithRouter(
   providedComponent: Component,
-  { withUser, withQueryClient }: Options | undefined = {},
+  { withUser, withQueryClient }: Options | undefined = {}
 ) {
   let Component: React.ComponentType = () => (
     <>The provided component could not be rendered</>

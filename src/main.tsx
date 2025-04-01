@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
 
-import { useAuthStore } from "@/store/authStore";
+import { useStore } from "@/store/mainStore";
 
 import { ErrorDisplay } from "./components/error-display";
 import { NotFound } from "./components/not-found";
@@ -19,7 +19,7 @@ const router = createRouter({
   routeTree,
   context: {
     queryClient,
-    isAuthenticated: useAuthStore.getState().isAuthenticated,
+    isAuthenticated: useStore.getState().user.isAuthenticated,
   },
   defaultPreload: "intent",
   defaultPreloadStaleTime: 0,
@@ -42,6 +42,6 @@ if (!rootElement.innerHTML) {
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
       </QueryClientProvider>
-    </StrictMode>,
+    </StrictMode>
   );
 }

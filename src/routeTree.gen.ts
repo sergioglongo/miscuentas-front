@@ -13,6 +13,7 @@ import { createFileRoute } from "@tanstack/react-router";
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
+import { Route as LayoutImport } from "./routes/_layout";
 import { Route as DashboardRouteImport } from "./routes/dashboard/route";
 import { Route as AuthRouteImport } from "./routes/auth/route";
 import { Route as IndexImport } from "./routes/index";
@@ -25,6 +26,11 @@ const DashboardIndexLazyImport = createFileRoute("/dashboard/")();
 const AuthLoginLazyImport = createFileRoute("/auth/login")();
 
 // Create/Update Routes
+
+const LayoutRoute = LayoutImport.update({
+  id: "/_layout",
+  getParentRoute: () => rootRoute,
+} as any);
 
 const DashboardRouteRoute = DashboardRouteImport.update({
   id: "/dashboard",
@@ -49,7 +55,7 @@ const DashboardIndexLazyRoute = DashboardIndexLazyImport.update({
   path: "/",
   getParentRoute: () => DashboardRouteRoute,
 } as any).lazy(() =>
-  import("./routes/dashboard/index.lazy").then((d) => d.Route),
+  import("./routes/dashboard/index.lazy").then((d) => d.Route)
 );
 
 const AuthLoginLazyRoute = AuthLoginLazyImport.update({
@@ -91,6 +97,13 @@ declare module "@tanstack/react-router" {
       path: "/dashboard";
       fullPath: "/dashboard";
       preLoaderRoute: typeof DashboardRouteImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_layout": {
+      id: "/_layout";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof LayoutImport;
       parentRoute: typeof rootRoute;
     };
     "/auth/_layout": {
@@ -137,7 +150,7 @@ const AuthRouteRouteChildren: AuthRouteRouteChildren = {
 };
 
 const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
-  AuthRouteRouteChildren,
+  AuthRouteRouteChildren
 );
 
 interface DashboardRouteRouteChildren {
@@ -151,13 +164,14 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
 };
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
-  DashboardRouteRouteChildren,
+  DashboardRouteRouteChildren
 );
 
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
   "/auth": typeof AuthLayoutRoute;
   "/dashboard": typeof DashboardLayoutRoute;
+  "": typeof LayoutRoute;
   "/auth/login": typeof AuthLoginLazyRoute;
   "/dashboard/": typeof DashboardIndexLazyRoute;
 }
@@ -165,6 +179,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
   "/auth": typeof AuthLayoutRoute;
+  "": typeof LayoutRoute;
   "/dashboard": typeof DashboardIndexLazyRoute;
   "/auth/login": typeof AuthLoginLazyRoute;
 }
@@ -174,6 +189,7 @@ export interface FileRoutesById {
   "/": typeof IndexRoute;
   "/auth": typeof AuthRouteRouteWithChildren;
   "/dashboard": typeof DashboardRouteRouteWithChildren;
+  "/_layout": typeof LayoutRoute;
   "/auth/_layout": typeof AuthLayoutRoute;
   "/dashboard/_layout": typeof DashboardLayoutRoute;
   "/auth/login": typeof AuthLoginLazyRoute;
@@ -182,14 +198,15 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/auth" | "/dashboard" | "/auth/login" | "/dashboard/";
+  fullPaths: "/" | "/auth" | "/dashboard" | "" | "/auth/login" | "/dashboard/";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/auth" | "/dashboard" | "/auth/login";
+  to: "/" | "/auth" | "" | "/dashboard" | "/auth/login";
   id:
     | "__root__"
     | "/"
     | "/auth"
     | "/dashboard"
+    | "/_layout"
     | "/auth/_layout"
     | "/dashboard/_layout"
     | "/auth/login"
@@ -201,12 +218,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   AuthRouteRoute: typeof AuthRouteRouteWithChildren;
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
+  LayoutRoute: typeof LayoutRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
+  LayoutRoute: LayoutRoute,
 };
 
 export const routeTree = rootRoute
@@ -221,7 +240,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/auth",
-        "/dashboard"
+        "/dashboard",
+        "/_layout"
       ]
     },
     "/": {
@@ -240,6 +260,9 @@ export const routeTree = rootRoute
         "/dashboard/_layout",
         "/dashboard/"
       ]
+    },
+    "/_layout": {
+      "filePath": "_layout.tsx"
     },
     "/auth/_layout": {
       "filePath": "auth/_layout.tsx",

@@ -22,7 +22,7 @@ describe("renderWithRouter", () => {
     const { unmount } = render(<TestComponent />);
 
     expect(spy).toHaveBeenCalledWith(
-      "Warning: useRouter must be used inside a <RouterProvider> component!",
+      "Warning: useRouter must be used inside a <RouterProvider> component!"
     );
 
     unmount();
@@ -45,7 +45,7 @@ describe("renderWithRouter", () => {
       expect(() => render(<TestQueryComponent />)).toThrow();
 
       expect(() =>
-        renderWithRouter(<TestQueryComponent />, { withQueryClient: true }),
+        renderWithRouter(<TestQueryComponent />, { withQueryClient: true })
       ).not.toThrow();
     });
   });

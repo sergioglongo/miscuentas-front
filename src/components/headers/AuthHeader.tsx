@@ -4,7 +4,7 @@ export function AuthHeader() {
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
         <div className="flex items-center gap-4">
           <img
-            src="/src/assets/Logo wallet.png"
+            src="/logowallet.png"
             alt="Mis Cuentas Logo"
             className="h-10 w-auto"
           />

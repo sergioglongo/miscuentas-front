@@ -2,13 +2,16 @@ import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 import { DashboardHeader } from "@/components/headers/DashboardHeader";
 import { Sidebar } from "@/components/navigation/Sidebar";
-import { useUIStore } from "@/store/uiStore";
 
 export function DashboardLayout() {
-  const _isOpen = useUIStore((state) => state.sidebar.isOpen);
-
   return (
-    <div className="flex min-h-screen">
+    <div
+      className="flex min-h-screen"
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(/background.jpg)",
+      }}
+    >
       <Sidebar />
       <div
         className="flex flex-1 flex-col"

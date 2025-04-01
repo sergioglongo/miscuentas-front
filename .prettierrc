@@ -1,1 +1,8 @@
-{ "endOfLine": "auto", "plugins": ["prettier-plugin-tailwindcss"] }
+{
+  "endOfLine": "auto",
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "singleQuote": false,
+  "trailingComma": "es5",
+  "semi": true,
+  "tabWidth": 2
+}
