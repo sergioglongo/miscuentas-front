@@ -7,7 +7,7 @@ import ReactApexChart from "react-apexcharts";
 
 const DashCircleCard = () => {
     const chartData: { series: number[]; options: ApexOptions } = {
-        series: [44, 55, 13, 43],
+        series: [44000, 55500, 13300, 43000],
         options: {
             chart: {
                 type: "donut" as const,
@@ -23,34 +23,54 @@ const DashCircleCard = () => {
                 position: "bottom",
                 horizontalAlign: "center",
                 labels: {
-                    colors: "#fff",
+                    colors: "#333",
                 },
             },
             plotOptions: {
                 pie: {
                     donut: {
-                        size: "40%", // Ajusta este valor entre '0%' y '100%'
+                        size: "40%",
                         labels: {
                             show: true,
                             total: {
                                 show: true,
                                 label: "Total",
-                                color: "#fff",
+                                color: "#333",
                                 fontSize: "24px",
                                 fontWeight: 600,
+                                formatter: function (w) {
+                                    return (
+                                        "$" +
+                                        w.globals.seriesTotals
+                                            .reduce(
+                                                (a: number, b: number) => a + b,
+                                                0
+                                            )
+                                            .toLocaleString()
+                                    );
+                                },
                             },
                             value: {
                                 fontSize: "22px",
-                                color: "#fff",
+                                color: "#333",
                             },
                         },
                     },
                 },
             },
+            stroke: {
+                width: 1,
+                colors: ["#666"],
+            },
             dataLabels: {
                 enabled: true,
                 formatter: function (val: number, { seriesIndex, w }) {
-                    return [w.config.labels[seriesIndex], val.toFixed(1) + "%"];
+                    const value = w.globals.seriesTotals[seriesIndex];
+                    return [
+                        w.config.labels[seriesIndex],
+                        val.toFixed(1) + "%",
+                        "$" + value.toLocaleString(),
+                    ];
                 },
                 style: {
                     fontSize: "14px",
@@ -63,14 +83,14 @@ const DashCircleCard = () => {
                 textAnchor: "middle",
             },
             theme: {
-                mode: "dark",
+                mode: "light",
             },
         },
     };
 
     return (
         <Card
-            sx={{ minWidth: 345, bgcolor: "background.paper", borderRadius: 2 }}
+            sx={{ minWidth: 250, bgcolor: "background.paper", borderRadius: 2 }}
         >
             <CardHeader
                 title="Gráfico Torta"
@@ -88,6 +108,7 @@ const DashCircleCard = () => {
                         type="donut"
                         height={350}
                     />
+                    ,
                 </Stack>
             </CardContent>
         </Card>
