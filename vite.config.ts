@@ -10,19 +10,19 @@ const isTest = process.env.NODE_ENV === "test";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    tsconfigPaths(),
-    react({
-      babel: {
-        plugins: [["babel-plugin-react-compiler", ReactCompilerConfig]],
-      },
-    }),
-    !isTest && TanStackRouterVite(),
-  ],
-  test: {
-    globals: true,
-    isolate: true,
-    environment: "jsdom",
-    setupFiles: "./tests/setup.tsx",
-  },
+    plugins: [
+        tsconfigPaths(),
+        react({
+            babel: {
+                plugins: [["babel-plugin-react-compiler", ReactCompilerConfig]],
+            },
+        }),
+        !isTest && TanStackRouterVite(),
+    ],
+    test: {
+        globals: true,
+        isolate: true,
+        environment: "jsdom",
+        setupFiles: "./tests/setup.tsx",
+    },
 });

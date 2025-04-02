@@ -14,24 +14,24 @@ import { afterEach } from "vitest";
 
 // runs a cleanup after each test case (e.g. clearing jsdom)
 afterEach(() => {
-  cleanup();
+    cleanup();
 });
 
 const Providers = ({ children }: { children: ReactNode }) => {
-  return <>{children}</>;
+    return <>{children}</>;
 };
 
 // setup function
 export const setup = (
-  ui: ReactElement,
-  options?: Omit<RenderOptions, "wrapper">
+    ui: ReactElement,
+    options?: Omit<RenderOptions, "wrapper">
 ) => {
-  return {
-    user: userEvent.setup(),
-    // Import `render` from the framework library of your choice.
-    // See https://testing-library.com/docs/dom-testing-library/install#wrappers
-    ...render(ui, { wrapper: Providers, ...options }),
-  };
+    return {
+        user: userEvent.setup(),
+        // Import `render` from the framework library of your choice.
+        // See https://testing-library.com/docs/dom-testing-library/install#wrappers
+        ...render(ui, { wrapper: Providers, ...options }),
+    };
 };
 
 // re-export everything; developers should import from setup.tsx
