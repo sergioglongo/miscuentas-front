@@ -62,7 +62,7 @@ const SignInForm = () => {
                     setUnitsListInLists(response.user.units);
                     setUnitMain(response.user.main_unit);
                     setUnitActive(response.user.main_unit);
-                    navigate({ to: "/dashboard/dashboard" });
+                    navigate({ to: "/dashboard/main" });
                 } else {
                     setErrorMessage(response.message);
                     setErrorShow(true);
