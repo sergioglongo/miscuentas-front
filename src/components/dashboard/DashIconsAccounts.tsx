@@ -3,13 +3,13 @@ import React from "react";
 import { AccountBalance, AttachMoney, Savings } from "@mui/icons-material";
 import { Card, CardContent, CardHeader, Grid } from "@mui/material";
 
-import IconCard from "./components/IconCard";
+import IconCard from "../cards/IconCard";
 
 export const DashIconsAccounts = () => {
     const cardData = [
         {
             icon: <AccountBalance style={{ fontSize: 60 }} />,
-            value: 0,
+            value: 350000,
             label: "Cuenta Banco",
         },
         {
@@ -19,7 +19,7 @@ export const DashIconsAccounts = () => {
         },
         {
             icon: <Savings style={{ fontSize: 60 }} />,
-            value: 25000,
+            value: 250000,
             label: "Ahorros",
         },
     ];

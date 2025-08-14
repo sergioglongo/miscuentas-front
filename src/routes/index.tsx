@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
         }
 
         throw redirect({
-            to: "/dashboard/dashboard",
+            to: "/dashboard/main",
         });
     },
 });

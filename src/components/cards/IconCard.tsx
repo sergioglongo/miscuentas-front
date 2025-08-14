@@ -17,6 +17,7 @@ const IconCard = ({
 }: IconCardProps) => {
     const formattedValue =
         typeof value === "number" ? `$${value.toLocaleString()}` : value;
+
     return (
         <Card
             sx={{
@@ -28,12 +29,7 @@ const IconCard = ({
         >
             <CardContent>
                 <Stack spacing={2} alignItems="center">
-                    <div
-                        style={{
-                            color: iconColor,
-                            fontSize: "2rem",
-                        }}
-                    >
+                    <div style={{ color: iconColor, fontSize: "2rem" }}>
                         {icon}
                     </div>
                     <Typography

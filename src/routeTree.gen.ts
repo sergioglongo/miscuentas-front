@@ -15,15 +15,22 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Route as rootRoute } from "./routes/__root";
 import { Route as LayoutImport } from "./routes/_layout";
 import { Route as DashboardRouteImport } from "./routes/dashboard/route";
+import { Route as ConfigsRouteImport } from "./routes/configs/route";
 import { Route as AuthRouteImport } from "./routes/auth/route";
+import { Route as AccountsRouteImport } from "./routes/accounts/route";
 import { Route as IndexImport } from "./routes/index";
 import { Route as DashboardLayoutImport } from "./routes/dashboard/_layout";
+import { Route as ConfigsLayoutImport } from "./routes/configs/_layout";
 import { Route as AuthLayoutImport } from "./routes/auth/_layout";
+import { Route as AccountsLayoutImport } from "./routes/accounts/_layout";
 
 // Create Virtual Routes
 
-const DashboardDashboardLazyImport = createFileRoute("/dashboard/dashboard")();
+const DashboardMainLazyImport = createFileRoute("/dashboard/main")();
+const ConfigsPanelLazyImport = createFileRoute("/configs/panel")();
+const ConfigsConfigsLazyImport = createFileRoute("/configs/configs")();
 const AuthLoginLazyImport = createFileRoute("/auth/login")();
+const AccountsAdminLazyImport = createFileRoute("/accounts/admin")();
 
 // Create/Update Routes
 
@@ -38,9 +45,21 @@ const DashboardRouteRoute = DashboardRouteImport.update({
     getParentRoute: () => rootRoute,
 } as any);
 
+const ConfigsRouteRoute = ConfigsRouteImport.update({
+    id: "/configs",
+    path: "/configs",
+    getParentRoute: () => rootRoute,
+} as any);
+
 const AuthRouteRoute = AuthRouteImport.update({
     id: "/auth",
     path: "/auth",
+    getParentRoute: () => rootRoute,
+} as any);
+
+const AccountsRouteRoute = AccountsRouteImport.update({
+    id: "/accounts",
+    path: "/accounts",
     getParentRoute: () => rootRoute,
 } as any);
 
@@ -50,12 +69,28 @@ const IndexRoute = IndexImport.update({
     getParentRoute: () => rootRoute,
 } as any);
 
-const DashboardDashboardLazyRoute = DashboardDashboardLazyImport.update({
-    id: "/dashboard",
-    path: "/dashboard",
+const DashboardMainLazyRoute = DashboardMainLazyImport.update({
+    id: "/main",
+    path: "/main",
     getParentRoute: () => DashboardRouteRoute,
 } as any).lazy(() =>
-    import("./routes/dashboard/dashboard.lazy").then((d) => d.Route)
+    import("./routes/dashboard/main.lazy").then((d) => d.Route)
+);
+
+const ConfigsPanelLazyRoute = ConfigsPanelLazyImport.update({
+    id: "/panel",
+    path: "/panel",
+    getParentRoute: () => ConfigsRouteRoute,
+} as any).lazy(() =>
+    import("./routes/configs/panel.lazy").then((d) => d.Route)
+);
+
+const ConfigsConfigsLazyRoute = ConfigsConfigsLazyImport.update({
+    id: "/configs",
+    path: "/configs",
+    getParentRoute: () => ConfigsRouteRoute,
+} as any).lazy(() =>
+    import("./routes/configs/configs.lazy").then((d) => d.Route)
 );
 
 const AuthLoginLazyRoute = AuthLoginLazyImport.update({
@@ -64,14 +99,32 @@ const AuthLoginLazyRoute = AuthLoginLazyImport.update({
     getParentRoute: () => AuthRouteRoute,
 } as any).lazy(() => import("./routes/auth/login.lazy").then((d) => d.Route));
 
+const AccountsAdminLazyRoute = AccountsAdminLazyImport.update({
+    id: "/admin",
+    path: "/admin",
+    getParentRoute: () => AccountsRouteRoute,
+} as any).lazy(() =>
+    import("./routes/accounts/admin.lazy").then((d) => d.Route)
+);
+
 const DashboardLayoutRoute = DashboardLayoutImport.update({
     id: "/_layout",
     getParentRoute: () => DashboardRouteRoute,
 } as any);
 
+const ConfigsLayoutRoute = ConfigsLayoutImport.update({
+    id: "/_layout",
+    getParentRoute: () => ConfigsRouteRoute,
+} as any);
+
 const AuthLayoutRoute = AuthLayoutImport.update({
     id: "/_layout",
     getParentRoute: () => AuthRouteRoute,
+} as any);
+
+const AccountsLayoutRoute = AccountsLayoutImport.update({
+    id: "/_layout",
+    getParentRoute: () => AccountsRouteRoute,
 } as any);
 
 // Populate the FileRoutesByPath interface
@@ -85,11 +138,25 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof IndexImport;
             parentRoute: typeof rootRoute;
         };
+        "/accounts": {
+            id: "/accounts";
+            path: "/accounts";
+            fullPath: "/accounts";
+            preLoaderRoute: typeof AccountsRouteImport;
+            parentRoute: typeof rootRoute;
+        };
         "/auth": {
             id: "/auth";
             path: "/auth";
             fullPath: "/auth";
             preLoaderRoute: typeof AuthRouteImport;
+            parentRoute: typeof rootRoute;
+        };
+        "/configs": {
+            id: "/configs";
+            path: "/configs";
+            fullPath: "/configs";
+            preLoaderRoute: typeof ConfigsRouteImport;
             parentRoute: typeof rootRoute;
         };
         "/dashboard": {
@@ -106,12 +173,26 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof LayoutImport;
             parentRoute: typeof rootRoute;
         };
+        "/accounts/_layout": {
+            id: "/accounts/_layout";
+            path: "";
+            fullPath: "/accounts";
+            preLoaderRoute: typeof AccountsLayoutImport;
+            parentRoute: typeof AccountsRouteImport;
+        };
         "/auth/_layout": {
             id: "/auth/_layout";
             path: "";
             fullPath: "/auth";
             preLoaderRoute: typeof AuthLayoutImport;
             parentRoute: typeof AuthRouteImport;
+        };
+        "/configs/_layout": {
+            id: "/configs/_layout";
+            path: "";
+            fullPath: "/configs";
+            preLoaderRoute: typeof ConfigsLayoutImport;
+            parentRoute: typeof ConfigsRouteImport;
         };
         "/dashboard/_layout": {
             id: "/dashboard/_layout";
@@ -120,6 +201,13 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof DashboardLayoutImport;
             parentRoute: typeof DashboardRouteImport;
         };
+        "/accounts/admin": {
+            id: "/accounts/admin";
+            path: "/admin";
+            fullPath: "/accounts/admin";
+            preLoaderRoute: typeof AccountsAdminLazyImport;
+            parentRoute: typeof AccountsRouteImport;
+        };
         "/auth/login": {
             id: "/auth/login";
             path: "/login";
@@ -127,17 +215,45 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof AuthLoginLazyImport;
             parentRoute: typeof AuthRouteImport;
         };
-        "/dashboard/dashboard": {
-            id: "/dashboard/dashboard";
-            path: "/dashboard";
-            fullPath: "/dashboard/dashboard";
-            preLoaderRoute: typeof DashboardDashboardLazyImport;
+        "/configs/configs": {
+            id: "/configs/configs";
+            path: "/configs";
+            fullPath: "/configs/configs";
+            preLoaderRoute: typeof ConfigsConfigsLazyImport;
+            parentRoute: typeof ConfigsRouteImport;
+        };
+        "/configs/panel": {
+            id: "/configs/panel";
+            path: "/panel";
+            fullPath: "/configs/panel";
+            preLoaderRoute: typeof ConfigsPanelLazyImport;
+            parentRoute: typeof ConfigsRouteImport;
+        };
+        "/dashboard/main": {
+            id: "/dashboard/main";
+            path: "/main";
+            fullPath: "/dashboard/main";
+            preLoaderRoute: typeof DashboardMainLazyImport;
             parentRoute: typeof DashboardRouteImport;
         };
     }
 }
 
 // Create and export the route tree
+
+interface AccountsRouteRouteChildren {
+    AccountsLayoutRoute: typeof AccountsLayoutRoute;
+    AccountsAdminLazyRoute: typeof AccountsAdminLazyRoute;
+}
+
+const AccountsRouteRouteChildren: AccountsRouteRouteChildren = {
+    AccountsLayoutRoute: AccountsLayoutRoute,
+    AccountsAdminLazyRoute: AccountsAdminLazyRoute,
+};
+
+const AccountsRouteRouteWithChildren = AccountsRouteRoute._addFileChildren(
+    AccountsRouteRouteChildren
+);
 
 interface AuthRouteRouteChildren {
     AuthLayoutRoute: typeof AuthLayoutRoute;
@@ -153,14 +269,30 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
     AuthRouteRouteChildren
 );
 
+interface ConfigsRouteRouteChildren {
+    ConfigsLayoutRoute: typeof ConfigsLayoutRoute;
+    ConfigsConfigsLazyRoute: typeof ConfigsConfigsLazyRoute;
+    ConfigsPanelLazyRoute: typeof ConfigsPanelLazyRoute;
+}
+
+const ConfigsRouteRouteChildren: ConfigsRouteRouteChildren = {
+    ConfigsLayoutRoute: ConfigsLayoutRoute,
+    ConfigsConfigsLazyRoute: ConfigsConfigsLazyRoute,
+    ConfigsPanelLazyRoute: ConfigsPanelLazyRoute,
+};
+
+const ConfigsRouteRouteWithChildren = ConfigsRouteRoute._addFileChildren(
+    ConfigsRouteRouteChildren
+);
+
 interface DashboardRouteRouteChildren {
     DashboardLayoutRoute: typeof DashboardLayoutRoute;
-    DashboardDashboardLazyRoute: typeof DashboardDashboardLazyRoute;
+    DashboardMainLazyRoute: typeof DashboardMainLazyRoute;
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
     DashboardLayoutRoute: DashboardLayoutRoute,
-    DashboardDashboardLazyRoute: DashboardDashboardLazyRoute,
+    DashboardMainLazyRoute: DashboardMainLazyRoute,
 };
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
@@ -169,74 +301,112 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
     "/": typeof IndexRoute;
+    "/accounts": typeof AccountsLayoutRoute;
     "/auth": typeof AuthLayoutRoute;
+    "/configs": typeof ConfigsLayoutRoute;
     "/dashboard": typeof DashboardLayoutRoute;
     "": typeof LayoutRoute;
+    "/accounts/admin": typeof AccountsAdminLazyRoute;
     "/auth/login": typeof AuthLoginLazyRoute;
-    "/dashboard/dashboard": typeof DashboardDashboardLazyRoute;
+    "/configs/configs": typeof ConfigsConfigsLazyRoute;
+    "/configs/panel": typeof ConfigsPanelLazyRoute;
+    "/dashboard/main": typeof DashboardMainLazyRoute;
 }
 
 export interface FileRoutesByTo {
     "/": typeof IndexRoute;
+    "/accounts": typeof AccountsLayoutRoute;
     "/auth": typeof AuthLayoutRoute;
+    "/configs": typeof ConfigsLayoutRoute;
     "/dashboard": typeof DashboardLayoutRoute;
     "": typeof LayoutRoute;
+    "/accounts/admin": typeof AccountsAdminLazyRoute;
     "/auth/login": typeof AuthLoginLazyRoute;
-    "/dashboard/dashboard": typeof DashboardDashboardLazyRoute;
+    "/configs/configs": typeof ConfigsConfigsLazyRoute;
+    "/configs/panel": typeof ConfigsPanelLazyRoute;
+    "/dashboard/main": typeof DashboardMainLazyRoute;
 }
 
 export interface FileRoutesById {
     __root__: typeof rootRoute;
     "/": typeof IndexRoute;
+    "/accounts": typeof AccountsRouteRouteWithChildren;
     "/auth": typeof AuthRouteRouteWithChildren;
+    "/configs": typeof ConfigsRouteRouteWithChildren;
     "/dashboard": typeof DashboardRouteRouteWithChildren;
     "/_layout": typeof LayoutRoute;
+    "/accounts/_layout": typeof AccountsLayoutRoute;
     "/auth/_layout": typeof AuthLayoutRoute;
+    "/configs/_layout": typeof ConfigsLayoutRoute;
     "/dashboard/_layout": typeof DashboardLayoutRoute;
+    "/accounts/admin": typeof AccountsAdminLazyRoute;
     "/auth/login": typeof AuthLoginLazyRoute;
-    "/dashboard/dashboard": typeof DashboardDashboardLazyRoute;
+    "/configs/configs": typeof ConfigsConfigsLazyRoute;
+    "/configs/panel": typeof ConfigsPanelLazyRoute;
+    "/dashboard/main": typeof DashboardMainLazyRoute;
 }
 
 export interface FileRouteTypes {
     fileRoutesByFullPath: FileRoutesByFullPath;
     fullPaths:
         | "/"
+        | "/accounts"
         | "/auth"
+        | "/configs"
         | "/dashboard"
         | ""
+        | "/accounts/admin"
         | "/auth/login"
-        | "/dashboard/dashboard";
+        | "/configs/configs"
+        | "/configs/panel"
+        | "/dashboard/main";
     fileRoutesByTo: FileRoutesByTo;
     to:
         | "/"
+        | "/accounts"
         | "/auth"
+        | "/configs"
         | "/dashboard"
         | ""
+        | "/accounts/admin"
         | "/auth/login"
-        | "/dashboard/dashboard";
+        | "/configs/configs"
+        | "/configs/panel"
+        | "/dashboard/main";
     id:
         | "__root__"
         | "/"
+        | "/accounts"
         | "/auth"
+        | "/configs"
         | "/dashboard"
         | "/_layout"
+        | "/accounts/_layout"
         | "/auth/_layout"
+        | "/configs/_layout"
         | "/dashboard/_layout"
+        | "/accounts/admin"
         | "/auth/login"
-        | "/dashboard/dashboard";
+        | "/configs/configs"
+        | "/configs/panel"
+        | "/dashboard/main";
     fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
     IndexRoute: typeof IndexRoute;
+    AccountsRouteRoute: typeof AccountsRouteRouteWithChildren;
     AuthRouteRoute: typeof AuthRouteRouteWithChildren;
+    ConfigsRouteRoute: typeof ConfigsRouteRouteWithChildren;
     DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
     LayoutRoute: typeof LayoutRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
     IndexRoute: IndexRoute,
+    AccountsRouteRoute: AccountsRouteRouteWithChildren,
     AuthRouteRoute: AuthRouteRouteWithChildren,
+    ConfigsRouteRoute: ConfigsRouteRouteWithChildren,
     DashboardRouteRoute: DashboardRouteRouteWithChildren,
     LayoutRoute: LayoutRoute,
 };
@@ -252,13 +422,22 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/accounts",
         "/auth",
+        "/configs",
         "/dashboard",
         "/_layout"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/accounts": {
+      "filePath": "accounts/route.ts",
+      "children": [
+        "/accounts/_layout",
+        "/accounts/admin"
+      ]
     },
     "/auth": {
       "filePath": "auth/route.ts",
@@ -267,30 +446,58 @@ export const routeTree = rootRoute
         "/auth/login"
       ]
     },
+    "/configs": {
+      "filePath": "configs/route.ts",
+      "children": [
+        "/configs/_layout",
+        "/configs/configs",
+        "/configs/panel"
+      ]
+    },
     "/dashboard": {
       "filePath": "dashboard/route.ts",
       "children": [
         "/dashboard/_layout",
-        "/dashboard/dashboard"
+        "/dashboard/main"
       ]
     },
     "/_layout": {
       "filePath": "_layout.tsx"
     },
+    "/accounts/_layout": {
+      "filePath": "accounts/_layout.tsx",
+      "parent": "/accounts"
+    },
     "/auth/_layout": {
       "filePath": "auth/_layout.tsx",
       "parent": "/auth"
+    },
+    "/configs/_layout": {
+      "filePath": "configs/_layout.tsx",
+      "parent": "/configs"
     },
     "/dashboard/_layout": {
       "filePath": "dashboard/_layout.tsx",
       "parent": "/dashboard"
     },
+    "/accounts/admin": {
+      "filePath": "accounts/admin.lazy.tsx",
+      "parent": "/accounts"
+    },
     "/auth/login": {
       "filePath": "auth/login.lazy.tsx",
       "parent": "/auth"
     },
-    "/dashboard/dashboard": {
-      "filePath": "dashboard/dashboard.lazy.tsx",
+    "/configs/configs": {
+      "filePath": "configs/configs.lazy.tsx",
+      "parent": "/configs"
+    },
+    "/configs/panel": {
+      "filePath": "configs/panel.lazy.tsx",
+      "parent": "/configs"
+    },
+    "/dashboard/main": {
+      "filePath": "dashboard/main.lazy.tsx",
       "parent": "/dashboard"
     }
   }

@@ -1,11 +1,10 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 
-import DashCircleCard from "@/components/dashboard/DashCircleCard";
+import DashAreaTransactions from "@/components/dashboard/DashAreaTransactions";
 import DashIconsAccounts from "@/components/dashboard/DashIconsAccounts";
-import DashIconsCard from "@/components/dashboard/DashIconsCard";
 import DashLinesMonths from "@/components/dashboard/DashLinesMonths";
 
-export const Route = createLazyFileRoute("/dashboard/dashboard")({
+export const Route = createLazyFileRoute("/dashboard/main")({
     component: RouteComponent,
 });
 
@@ -18,10 +17,7 @@ function RouteComponent() {
                     Estas son tus estadisticas generales.
                 </p>
             </div>
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                <DashCircleCard />
-                <DashIconsCard />
-            </div>
+            <DashAreaTransactions />
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                 <DashLinesMonths />
                 <DashIconsAccounts />

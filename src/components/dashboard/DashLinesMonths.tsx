@@ -18,11 +18,11 @@ const DashLinesMonths = () => {
         series: [
             {
                 name: "Ingresos",
-                data: [0, 0, 70000, 0, 0, 0],
+                data: [0, 0, 70000, 0, 35000, 0],
             },
             {
                 name: "Egresos",
-                data: [12000, 0, 0, 0, 0, 0],
+                data: [12000, 90000, 150000, 50000, 0, 0],
             },
         ],
         options: {

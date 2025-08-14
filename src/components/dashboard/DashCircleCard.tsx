@@ -2,7 +2,7 @@ import type { ApexOptions } from "apexcharts";
 
 import React from "react";
 
-import { Card, CardContent, CardHeader, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import ReactApexChart from "react-apexcharts";
 
 const DashCircleCard = () => {
@@ -32,6 +32,21 @@ const DashCircleCard = () => {
                         size: "40%",
                         labels: {
                             show: true,
+                            name: {
+                                show: true,
+                                fontSize: "22px",
+                                color: "#000000",
+                                offsetY: -10,
+                            },
+                            value: {
+                                show: true,
+                                fontSize: "24px",
+                                color: "#000000",
+                                offsetY: 10,
+                                // formatter: function(val: number) {
+                                //     return "$" + val.toLocaleString();
+                                // },
+                            },
                             total: {
                                 show: true,
                                 label: "Total",
@@ -50,10 +65,6 @@ const DashCircleCard = () => {
                                     );
                                 },
                             },
-                            value: {
-                                fontSize: "22px",
-                                color: "#333",
-                            },
                         },
                     },
                 },
@@ -65,11 +76,11 @@ const DashCircleCard = () => {
             dataLabels: {
                 enabled: true,
                 formatter: function (val: number, { seriesIndex, w }) {
-                    const value = w.globals.seriesTotals[seriesIndex];
+                    // const value = w.globals.seriesTotals[seriesIndex];
                     return [
                         w.config.labels[seriesIndex],
                         val.toFixed(1) + "%",
-                        "$" + value.toLocaleString(),
+                        // "$" + value.toLocaleString(),
                     ];
                 },
                 style: {
@@ -89,29 +100,15 @@ const DashCircleCard = () => {
     };
 
     return (
-        <Card
-            sx={{ minWidth: 250, bgcolor: "background.paper", borderRadius: 2 }}
-        >
-            <CardHeader
-                title="Gráfico Torta"
-                sx={{
-                    textAlign: "center",
-                    borderBottom: 1,
-                    borderColor: "divider",
-                }}
+        <Stack spacing={2}>
+            <ReactApexChart
+                options={chartData.options}
+                series={chartData.series}
+                type="donut"
+                height={350}
             />
-            <CardContent>
-                <Stack spacing={2}>
-                    <ReactApexChart
-                        options={chartData.options}
-                        series={chartData.series}
-                        type="donut"
-                        height={350}
-                    />
-                    ,
-                </Stack>
-            </CardContent>
-        </Card>
+            ,
+        </Stack>
     );
 };
 

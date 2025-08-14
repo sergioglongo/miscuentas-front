@@ -88,6 +88,7 @@ export default tseslint.config(
                 },
             ],
             "simple-import-sort/exports": "error",
+            "@typescript-eslint/no-explicit-any": "off",
         },
     },
     eslintPluginPrettierRecommended,

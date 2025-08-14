@@ -81,19 +81,19 @@ export function Sidebar() {
                 </div>
 
                 <List>
-                    <ListItem component={Link} to="/dashboard">
+                    <ListItem component={Link} to="/dashboard/main">
                         <ListItemIcon>
                             <Dashboard />
                         </ListItemIcon>
                         <ListItemText primary="Dashboard" />
                     </ListItem>
-                    <ListItem component={Link} to="/dashboard/accounts">
+                    <ListItem component={Link} to="/accounts/admin">
                         <ListItemIcon>
                             <AccountBalance />
                         </ListItemIcon>
                         <ListItemText primary="Cuentas" />
                     </ListItem>
-                    <ListItem component={Link} to="/dashboard/settings">
+                    <ListItem component={Link} to="/configs/panel">
                         <ListItemIcon>
                             <Settings />
                         </ListItemIcon>
