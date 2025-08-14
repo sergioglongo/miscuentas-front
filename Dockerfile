@@ -9,6 +9,14 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 # Establecer directorio de trabajo
 WORKDIR /app
 
+# Recibir build arguments
+ARG VITE_URL_BACKEND_PROD
+ARG NODE_ENV=production
+
+# Establecer variables de entorno para el build
+ENV VITE_URL_BACKEND_PROD=$VITE_URL_BACKEND_PROD
+ENV NODE_ENV=$NODE_ENV
+
 # Copiar archivos de dependencias (pnpm-workspace.yaml es opcional)
 COPY package.json pnpm-lock.yaml ./
 COPY pnpm-workspace.yaml* ./
