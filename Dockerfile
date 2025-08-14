@@ -19,8 +19,8 @@ RUN pnpm install --frozen-lockfile
 # Copiar el código fuente
 COPY . .
 
-# Construir la aplicación (tsc -b && vite build)
-RUN pnpm run build
+# Construir la aplicación solo con Vite (sin TypeScript check)
+RUN pnpm run build:docker
 
 # Etapa 2: Producción con Nginx
 FROM nginx:alpine

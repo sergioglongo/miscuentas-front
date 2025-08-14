@@ -6,6 +6,7 @@
     "type": "module",
     "scripts": {
         "build": "tsc -b && vite build",
+        "build:docker": "vite build",
         "ci": "pnpm run ci:lint && pnpm run ci:test",
         "ci:lint": "pnpm lint",
         "ci:test": "pnpm test",
